@@ -19,8 +19,9 @@ public class FakeReactiveRepository implements ReactiveCrudRepository<Sir, Strin
 
 	@Override
 	public Mono<Sir> findOne(String s) {
+		// //https://github.com/reactor/reactor-core/issues/516
 		return Mono.just(s)
-		           .then(id -> {
+		           .flatMap(id -> {
 			           if ("notfound".equalsIgnoreCase(s))
 				           return Mono.empty();
 			           else
